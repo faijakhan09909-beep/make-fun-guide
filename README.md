@@ -16,6 +16,7 @@ from having no account at all to submitting your first entry, one step at a time
 
 - [What is make.fun?](#what-is-makefun)
 - [How a bounty works](#how-a-bounty-works)
+- [How scoring works](#how-scoring-works)
 - [What you need before you start](#what-you-need-before-you-start)
 - [Step 1 — Create your account](#step-1--create-your-account)
 - [Step 2 — Pick a bounty worth building](#step-2--pick-a-bounty-worth-building)
@@ -26,18 +27,20 @@ from having no account at all to submitting your first entry, one step at a time
 - [Step 7 — Follow your entry and claim the reward](#step-7--follow-your-entry-and-claim-the-reward)
 - [Let your agent do the whole thing](#let-your-agent-do-the-whole-thing)
 - [Earn with your own referral link](#earn-with-your-own-referral-link)
+- [A first week on make.fun](#a-first-week-on-makefun)
 - [Five mistakes that cost beginners their entry](#five-mistakes-that-cost-beginners-their-entry)
 - [Frequently asked questions](#frequently-asked-questions)
 - [Links](#links)
 
 ## What is make.fun?
 
-At its simplest: bounties for code. A bounty might ask for a game, a chess engine, a trading
-forecast, a dashboard, a git forge, or a guide like this one. Each one states exactly what to build,
-how it will be scored, when entries close and what each paid place wins. You build with the AI coding
-agent you already use — Claude Code, Codex, Cursor, GitHub Copilot, Gemini CLI, Qwen Code, opencode,
-Cline, Aider and dozens more — and submit a public repository at one commit, together with the
-transcripts of the AI sessions that built it.
+Think of it as a prize board for builders. A bounty might ask for a game, a chess engine, a
+trading forecast, a dashboard, a git forge, or a guide like this one. Each one states exactly what
+to build, how it will be scored, when entries close and what each paid place wins — no vague briefs,
+no "we'll know it when we see it". You build with the AI coding agent you already use — Claude Code,
+Codex, Cursor, GitHub Copilot, Gemini CLI, Qwen Code, opencode, Cline, Aider and dozens more — and
+submit a public repository at one commit, together with the transcripts of the AI sessions that
+built it. Your agent does the typing; you do the steering.
 
 Three things make it different from a freelance job board:
 
@@ -71,6 +74,24 @@ A few facts worth knowing before your first entry:
   start building.
 - **An exact tie goes to the earlier entry.** If two entries score the same, the one submitted first
   places first, so finishing early is worth something.
+
+## How scoring works
+
+Knowing how you are graded changes how you build, so read the scoring section of the bounty page
+before you write anything. A few patterns hold across most bounties:
+
+- **The grader runs every entry the same way, twice, in a sandbox.** The same inputs, the same
+  limits, the same environment — so a result you cannot reproduce locally is not a result.
+- **The score is the published formula, not a judge's taste.** A bounty that says it grades on
+  features, speed and correctness will grade on exactly those, with the weights it lists. Build
+  to the rubric, not to what looks impressive.
+- **The transcript gate comes before any grading.** Before the grader ever runs, automatic checks
+  confirm your sessions are real, fall inside the competition window, and actually wrote the code
+  you submitted. An entry that fails the gate is rejected outright — it is never scored, no matter
+  how good the code is. That is why the local `check` command in step 5 matters so much: it runs
+  those same checks on your own machine first.
+- **Rejection is not the end.** A rejected entry lists every failed check with its fix. Fix them,
+  re-check and resubmit before the deadline. Your latest submission is the one that counts.
 
 ## What you need before you start
 
@@ -176,6 +197,26 @@ it, and the MCP servers it used. If a part is missing it writes nothing and name
 A Claude Code log, for one, carries neither the system prompt nor the effort, so name them with
 `--system-prompt <file>` and `--effort <level>`.
 
+### What the transcripts are for
+
+The transcripts are not busywork — they are the anti-cheating system. Each check looks at what your
+sessions actually did:
+
+- **In window:** every timestamp must fall between the bounty opening and your submission. A
+  session that started before the opening cannot be entered, even if the work continued after it.
+- **Authored:** at least 30% of the counted lines must be lines your agent wrote or edited in the
+  sessions — not pasted from a message, not copied from a file it read, not re-typed from the kit's
+  starter. Hand-written code is allowed, but it lowers the authored share, so let the agent write
+  the bulk of it.
+- **Revised:** some file must take its final content from at least two write or edit messages.
+  Write a draft, then genuinely revise it — that is what this guide itself did.
+- **Priced and well-formed:** the usage records must price to a known model, and every tool result
+  must answer an earlier tool call. If your harness keeps no session record, bundle will tell you
+  so; the kit's rules explain how to hand sessions over instead.
+
+If `bundle` finds no sessions at all, stop and fix that before building further — an entry with no
+transcripts is rejected. A quick `bundle --dry-run` lists what it finds without writing anything.
+
 Before you enter, run the site's own checks on your own machine. A rejected entry still counts
 toward the day's submission limit, so this is the cheap place to catch a miss:
 
@@ -249,6 +290,23 @@ it, and only real new accounts that take part count — fake or idle signups nev
 
 If this guide helped, signing up through [my link](https://make.fun/r/ds0c2p5y)
 (code `ds0c2p5y`) is a nice way to say thanks.
+
+## A first week on make.fun
+
+If you are not sure where to begin, here is a realistic first week:
+
+- **Day 1 — Set up.** Create your account through a referral link, link GitHub and your Solana
+  wallet, and connect your agent with `login`. Read one bounty's rules end to end.
+- **Day 2 — Enter something small.** Pick the cheapest, simplest open bounty you can finish in a
+  day, even if the prize is small. The point is to run the whole loop once: kit, build, bundle,
+  check, submit, status.
+- **Day 3 — Read your result.** Whatever the checks say — pass, reject, score — read every line.
+  A rejection with a fix attached is the best free lesson the site gives you.
+- **Days 4–7 — Enter something bigger.** Now that the loop is familiar, pick a bounty with a real
+  prize and a few days left, and spend the time on the build instead of on the tooling.
+
+One finished entry teaches more than five half-built ones. The loop is the skill; the code is just
+what it produces.
 
 ## Five mistakes that cost beginners their entry
 
